@@ -1,2 +1,80 @@
 Instruksi:
 - Tulis/pasti code SQL pada file yang telah disediakan!
+create table pembeli (
+	id serial,
+	nama text,
+	alamat text,
+	tanggal_lahir int,
+	status text,
+	gendre text,
+	email text unique,
+	primary key(id)
+);
+
+create table barang (
+	id serial,
+	nama text,
+	harga int,
+	stok int,
+	id_produk_type int,
+	id_merk int,
+	description text,
+	primary key (id),
+	foreign key (id_produk_type) references produk_type (id),
+	foreign key (id_merk) references merk (id)
+);
+
+create table produk_type (
+	id serial,
+	nama text,
+	primary key (id)
+);
+
+create table merk (
+	id serial,
+	nama text,
+	primary key (id)
+);
+
+create table payment_method (
+	id serial,
+	nama text,
+	primary key (id)
+);
+
+create table transaksi (
+	id serial,
+	id_pembeli int,
+	id_payment_method int,
+	harga int,
+	tanggal timestamptz,
+	primary key (id),
+	foreign key (id_pembeli) references pembeli (id),
+	foreign key (id_payment_method) references payment_method (id)
+);
+
+create table detail_transaksi (
+	id serial,
+	id_barang int,
+	id_transaksi int,
+	quantity int,
+	harga int,
+	total int,
+	primary key (id),
+	foreign key (id_barang) references barang (id),
+	foreign key (id_transaksi) references transaksi (id)
+); 
+
+create table kurir (
+	id serial,
+	nama text,
+	created_at text,
+	updated_at text,
+	ongkos_dasar int,
+	primary key (id)
+	
+);
+drop table kurir ;
+
+
+

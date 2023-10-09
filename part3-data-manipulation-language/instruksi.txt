@@ -1,2 +1,82 @@
 Instruksi:
 - Tulis/pasti code SQL pada file yang telah disediakan!
+-- JAWABAN SOAL UNTUK INSERT
+insert into produk_type (nama) values ('MAKANAN'), ('VITAMIN'), ('SHAMPO');
+
+insert into payment_method (nama) values ('E-wallet'), ('Credit Cards'), ('QRIS');
+
+insert into pembeli (nama,alamat,tanggal_lahir,status,gendre,email) values
+					('IRFAN','Jl.wahidin',17,'SINGLE','LAKI-LAKI','irfan@gmail.com'),
+					('ARIF','Jl.siak',20,'SINGLE','LAKI-LAKI','arif@gmail.com'),
+					('WILDA','Jl.nagur',25,'SINGLE','PEREMPUAN','wilda@gmail.com'),
+					('DINA','Jl.tomuan',22,'SINGLE','PEREMPUAN','dina@gmail.com'),
+					('RIVAL','Jl.nusa',23,'SINGLE','LAKI-LAKI','rival@gmail.com');
+insert into merk (nama)	values
+					('PRO PLAN Adult'),
+					('Beauty Cat Food'),
+					('Virbac Nutri-Plus'),
+					('Essentials'),
+					('Fluffy Magic'),
+					('Volk Pets'),
+					('MPETS Hairball'),
+					('Hartz Groomers');
+
+insert into barang (nama,harga,stok,id_produk_type,id_merk,description) values 
+					('PRO PLAN Adult', 100000,5,1,1,'Pro Plan Adult Chicken dibuat dari daging ayam asli sebagai bahan baku utama dan diperkaya dengan Probiotik Aktif untuk mendukung kesehatan pencernaan serta daya tahan tubuh kucing kesayanganmu'),
+					('Nature Bridge Beauty Cat Food', 240000,6,1,2,'Nature Bridge Beauty Cat Food All Stages merupakan pakan yang tinggi akan protein hewani gluten free mengandung herbal tidak mengandung pengawet pewarna perisa dan hormon pemicu pertumbuhan'),
+					
+					('Virbac Nutri-Plus Gel',140000,8,2,3,'Mengandung ekstrak murni dari hewan dan tumbuhan sehingga mudah dan cepat dikonversi menjadi energi Pemberian NUTRI-PLUS GEL efektif pada anjing dan kucing dalam masa pertumbuhan anjing pemburu dan induk yang hamil dan menyusui'),
+					('Dermatrix Essentials', 250000,6,2,4,'Kala Health Dermatrix Essentials adalah suplemen asam lemak esensial untuk hewan Suplemen ini mengandung semua nutrisi yang dibutuhkan pada kucing dan anjing untuk merawat kulit agar tetap sehat dan bulu mengkilap'),
+					('Fluffy Magic Collagen', 140000,5,2,5,'Peningkat Daya Tahan Tubuh Mendukung kesehatan dan kekuatan tulang Menyehatkan kulit & bulu menjadi lebih l Peningkat nafsu makan hewan Memperbaiki saluran pencernaan'),
+					
+					('Volk Pets Cat', 85000,6,3,6,'VOLK PETS WHITENING CAT SHAMPOO SHAMPOO KHUSUS UNTUK KUCING BERBULU PUTIH DENGAN SHAMPOO INI KUCING AKAN TERLIHAT PUTIH BERSIH DAN CERAH'),
+					('MPETS Hairball', 60000,5,3,7,'Merawat kucing peliharaan Anda dapat dilakukan dengan berbagai cara seperti rajin memandikannya secara teratur untuk menjaga kesehatan kulit dan bulunya Sampo Hairball dari M-Pets dapat membuat bulu kucing menjadi lebih mudah disisir dan mencegah bulu kucing menjadi kusut'),
+					('Hartz Groomers Best',150000,8,3,8,'Hartz Groomers Best Extra Gentle Whitening Shampoo membawa keluar kecemerlangan alami bulu putih perak dan bercahaya dan mengurangi perubahan warna');
+
+insert into transaksi (id_pembeli,id_payment_method,harga) values 
+						(3,2,100000),
+						(5,1,140000),
+						(7,2,60000);
+
+insert into detail_transaksi (id_barang,id_transaksi,quantity,harga,total) values
+							(17,1,1,100000,100000),
+							(19,2,1,100000,140000),
+							(23,3,1,100000,60000);
+                            
+
+--JAWABAN SOAL UNTUK SELECT DAN UPDATE DELETE
+SELECT * FROM pembeli p WHERE gendre  = 'LAKI-LAKI';
+
+SELECT * FROM produk_type pt  WHERE id  = '3';
+
+SELECT * FROM pembeli p  WHERE nama LIKE '%a%' 
+  AND created_at >= CURRENT_DATE - INTERVAL '7 days';
+ 
+SELECT * FROM pembeli p WHERE gendre  = 'PEREMPUAN';
+
+SELECT * FROM pembeli p ORDER BY nama ASC;
+
+SELECT * FROM transaksi WHERE id_pembeli  = 3 LIMIT 5;
+
+
+UPDATE produk_type  SET nama = 'product_dummy' WHERE id = 1;
+
+update barang set stok = 3 where id = 1;
+
+DELETE FROM barang  WHERE id = 1;
+
+DELETE FROM barang  WHERE id_produk_type  = 1;
+
+
+--JAWABAN RELASION 2
+SELECT * FROM transaksi WHERE id  = 1 union SELECT * FROM transaksi WHERE id = 2;
+
+SELECT id_pembeli , SUM(harga) AS total_harga FROM transaksi WHERE id_pembeli  = 1 GROUP BY id_pembeli ;
+
+SELECT id_transaksi , SUM(total) AS harga FROM detail_transaksi dt WHERE id_transaksi  = 2 GROUP BY id_transaksi ;
+
+
+
+
+
+ 
